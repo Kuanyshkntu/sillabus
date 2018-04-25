@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript" type="text/javascript">
+<!--
+
+var NS4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5);
+
+function addOption(theSel, theText, theValue)
+{
+  var newOpt = new Option(theText, theValue);
+  var selLength = theSel.length;
+  theSel.options[selLength] = newOpt;
+}
+
+
+function deleteOption(theSel, theIndex)
+{
+  var selLength = theSel.length;
+  if(selLength>0)
+  {
+    theSel.options[theIndex] = null;
+  }
+}
+
+
+function moveOptions(theSelFrom, theSelTo)
+{
+
+  var selLength = theSelFrom.length;
+  var selectedText = new Array();
+  var selectedValues = new Array();
+  var selectedCount = 0;
+
+  var i;
+
+  // Find the selected Options in reverse order
+  // and delete them from the 'from' Select.
+  for(i=selLength-1; i>=0; i--)
+  {
+    if(theSelFrom.options[i].selected)
+    {
+      selectedText[selectedCount] = theSelFrom.options[i].text;
+      selectedValues[selectedCount] = theSelFrom.options[i].value;
+      deleteOption(theSelFrom, i);
+      selectedCount++;
+    }
+  }
+
+  // Add the selected text/values in reverse order.
+  // This will add the Options to the 'to' Select
+  // in the same order as they were in the 'from' Select.
+  for(i=selectedCount-1; i>=0; i--)
+  {
+    addOption(theSelTo, selectedText[i], selectedValues[i]);
+  }
+
+  if(NS4) history.go(0);
+}
+
+//-->
+</script>
+</head>
+<body>
+{{ contacts_form_data }}
+<form method="post" action="/catalog/syllabus/">
+    {% csrf_token %}
+    <label for="teacher">Teacher</label><br>
+    <select id="teacher" name="teacher">
+    {% for teacher in teachers %}
+    <option>{{ teacher.first_name }}</option>
+    {% endfor %}
+</select><br>
+<label for="subject">Subject</label>
+    <select id="subject" name="subject">
+    {% for subject in subjects %}
+    <option>{{ subject.subject_name }}</option>
+    {% endfor %}
+</select><br>
+<label for="takyryp">Takyryp</label>
+    <table border="0">
+	<tr>
+		<td>
+			<select name="sel1" size="10" multiple="multiple">
+                {% for takyryp in takyryps %}
+			<option >{{ takyryp.takyryp_aty }}</option>
+		{% endfor %}
+			</select>
+		</td>
+		<td align="center" valign="middle">
+			<input type="button" value="--&gt;"
+			 onclick="moveOptions(this.form.sel1, this.form.takyryp);" /><br />
+			<input type="button" value="&lt;--"
+			 onclick="moveOptions(this.form.takyryp, this.form.sel1);" />
+		</td>
+		<td>
+			<select id = "takyryp" name="takyryp" size="10" multiple="multiple">
+			<option >Right1</option>
+			</select>
+		</td>
+	</tr>
+</table><br>
+<label for="literature">Literature</label><br>
+     <table border="0">
+	<tr>
+		<td>
+			<select  name="literature1" size="10" multiple="multiple">
+                {% for literature in literaturas %}
+			<option >{{ literature.literature_name }}</option>
+		{% endfor %}
+			</select>
+		</td>
+		<td align="center" valign="middle">
+			<input type="button" value="--&gt;"
+			 onclick="moveOptions(this.form.literature1, this.form.literature);" /><br />
+			<input type="button" value="&lt;--"
+			 onclick="moveOptions(this.form.literature, this.form.literature1);" />
+		</td>
+		<td>
+			<select id = "literature" name="literature" size="10" multiple="multiple" >
+			<option >Right1</option>
+			</select>
+		</td>
+	</tr>
+</table><br>
+<label for="zertjumys">Zerthanalyk jumys</label><br>
+     <table border="0">
+	<tr>
+		<td>
+			<select  name="zertjumys1" size="10" multiple="multiple">
+                {% for zertjumys in zertjumyss %}
+			<option >{{ zertjumys.opisanie }}</option>
+		{% endfor %}
+			</select>
+		</td>
+		<td align="center" valign="middle">
+			<input type="button" value="--&gt;"
+			 onclick="moveOptions(this.form.zertjumys1, this.form.zertjumys);" /><br />
+			<input type="button" value="&lt;--"
+			 onclick="moveOptions(this.form.zertjumys, this.form.zertjumys1);" />
+		</td>
+		<td>
+			<select id = "zertjumys" name="zertjumys" size="10" multiple="multiple">
+			<option >Right1</option>
+			</select>
+		</td>
+	</tr>
+</table><br>
+<label for="post">Postrekvisit</label><br>
+    <textarea id="post" name="post">engiz</textarea><br>
+<label for="kkm">Kurstyn kyskasha mazmuny</label><br>
+    <textarea id="kkm" name="kkm">engiz</textarea><br>
+<label for="pokab">Pan otu kezinde algan bilim</label><br>
+    <textarea id="pokab" name="pokab">engiz</textarea>
+
+<button type="submit">Submit</button>
+</form>
+</body>
+</html>

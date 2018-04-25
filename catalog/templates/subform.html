@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+</head>
+<body>
+<div class="container">
+<form action="/catalog/zapol/" method="post">
+{% csrf_token %}
+<div class="form-group">
+<label for="name">Сабақ аты:</label>
+    <input type="text" name="sub_name" id="name" class="form-control">
+</div>
+<div class="form-group">
+<label for="cred">Кредит:</label>
+    <input type="text" name="sub_cred" id="cred" class="form-control">
+</div>
+<div class="form-group">
+<label for="desc">Мазмуны:</label>
+    <textarea id="desc" name="sub_desc" class="form-control"></textarea>
+</div>
+<div class="form-group">
+<label for="out">Пән өту кезіндегі алған білім:</label>
+    <textarea id="out" name="sub_out" class="form-control"></textarea>
+</div>
+<div class="form-group">
+<label for="post">Постреквизит:</label>
+    <textarea id="post" name="sub_post" class="form-control"></textarea>
+</div>
+<div class="form-group">
+<label for="sbOne">Тақырып:</label>
+    <select id="sbOne" multiple="multiple" name="sub_tak" class="form-control">
+    {% for takyryp in takyryps %}
+			<option > {{ takyryp.takyryp_aty }}</option>
+		{% endfor %}
+    </select><br>
+</div>
+<div class="form-group">
+<label for="sbOnee">Әдебиет:</label>
+<select id="sbOnee" multiple="multiple" name="sub_lit" class="form-control">
+{% for literature in literaturas %}
+			<option >{{ literature.literature_name }}</option>
+		{% endfor %}
+    </select>
+</div>
+<button type="submit">Сақтау</button>
+</form>
+</div>
+</body>
+</html>

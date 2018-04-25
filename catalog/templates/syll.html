@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Local Library</title>{% endblock %}
+{% load static %}
+    <style>
+
+body{
+	   font-family: "Times New Roman", Times, serif;
+    margin-right: 330px;
+    margin-left: 330px;
+    font-size: 15px;
+}
+.cen{
+    text-align: center;
+}
+.bekit{
+    position:absolute;left:780px;
+}
+.mar{
+	margin-top: 400px;
+}
+.lef{
+    text-align: left;
+    margin-left: 50px;
+}
+.rig{
+    text-align: right;
+    position: absolute;
+    top: 1265px;
+    left: 780px;
+}
+
+table, th, td {
+
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+    font-weight:normal;
+    width: 100%;
+}
+.bck{
+	background-color: grey;
+}
+    </style>
+</head>
+<body>
+<div style="page-break-before:always;">
+<div class="cen">
+<p>БІЛІМ ЖӘНЕ ҒЫЛЫМ МИНИСТРЛІГІ<br>
+ҚАЗАҚСТАН РЕСПУБЛИКАСЫНЫҢ
+</p><br><br><br><br><br>
+</div>
+
+<div class="cen">
+<p><img src="{% static 'kar/kaz.png' %}"  width="310" height="120" alt="dkmvsfdkmv"></p>
+</div>
+<div class="bekit"><span class="boldd">БЕКІТЕМІН</span><br>
+<span>Кафедра меңгерушісі</span><br><span>______________________________</span><br>
+<span>___________________ </span>(аты-жөні)<br>
+«____» ________________ </span><span >20___ ж.</span>
+</div><br><br><br><br><br><br><br><br>
+<div class="cen">
+	<p>СИЛЛАБУС<br><br>
+		КОД<span>«____________________________________»</span><br>
+		(пәннің атауы)<br><br>
+		<span>{{ subject_credit }} кредит саны</span><br><br>
+		Семестр:<span>____________ 201_-201_ оқу жылы</span>
+	</p>
+</div>
+<div class="cen">
+<div class="mar">
+	Алматы, 2018<br><br><br><br><br><br>
+</div>
+</div>
+</div>
+<div style="page-break-before:always;">
+<div class="cen">
+	Институт<span> ___________________</span><br><br>
+	Кафедра<span> «____________»</span>
+</div>
+<p>
+	1. Оқытушылар туралы ақпарат
+</p>
+<div class="cen">
+	Лектор<br>
+	{{ teacher_last }} {{ teacher }} {{ teacher_otch }}<br>
+	Офис сагаты,кабинет<br>
+	{{ teacher_email }}
+</div>
+<div class="lef">
+Оқытушы<br>
+(практикалық кәсіптер)<br>
+{{ prak_teacher_last }} {{ prak }} {{ prak_teacher_otch }}<br>
+_ Офис сағаты, кабинет_<br>
+{{ prak_teacher_email }}<br>
+</div>
+<div class="rig">
+
+Оқытушы<br>
+(зертхана кәсіптер)<br>
+{{ lab_teacher_last }} {{ lab }} {{ lab_teacher_otch }}<br>
+_ Офис сағаты, кабинет_<br>
+{{ lab_teacher_email }}<br>
+</div>
+<p>2.Курстың мақсаты:</p>
+{{ outcome }}
+<p>
+3.Курстың сипаттамасы:
+</p>
+{{ description }}
+<p>4.Пререквизиттер:</p>
+<ul>
+    {% for pr in pre %}
+
+   <li>{{ pr }}</li>
+{% endfor %}
+
+</ul>
+<p>5.Постреквизиттер:</p>
+<ul>
+	{% for pp in post %}
+
+   <li>{{ pp }}</li>
+{% endfor %}
+</ul>
+<p>6.Әдебиеттер:</p>
+<table>
+    <tr class="bck">
+        <td>Негізгі әдебиет</td>
+        <td>Қосымша оқу</td>
+    </tr>
+    {% for lit in ll %}
+
+    <tr>
+        <td>{% if lit.typee == 'Н' %}{{ lit.literature_name }}{% endif %}</td>
+        <td>{% if lit.typee == 'Қ' %}{{ lit.literature_name }}{% endif %}</td>
+    </tr>
+{% endfor %}
+</table>
+<p>7.Күнтізбе тақырыптық жоспары
+</p>
+</div>
+<table>
+    <tr>
+        <td>Апта</td>
+        <td>Лекция тақырыбы</td>
+        <td>Практикалық жұмысының тақырыбы</td>
+        <td>Анықтама әдебиет бойынша</td>
+        <td>Тапсырма</td>
+        <td>Жеткізу мерзімі</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '1' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '1' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '2' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '2' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '3' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '3' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '4' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '4' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '5' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '5' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6</td>
+       <td>{% for keste in kestes %}
+            {% if keste.apta == '6' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '6' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '7' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '8' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td colspan="3">Бірінші аралық аттестация</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '9' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '9' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '10' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '10' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '11' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '11' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '12' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '12' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '13' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '13' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '14' %}{{ keste.lekcia }}{% endif %}
+    {% endfor %}</td>
+        <td>{% for keste in kestes %}
+            {% if keste.apta == '14' %}{{ keste.zert }}{% endif %}
+    {% endfor %}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td colspan="3"></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td colspan="3"></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table><br>
+* Күнтізбенің тақырыптық күнтізбесінде мереке күндерін ескере отырып, өзгерістер болуы мүмкін<br><br><br>
+<p>8.Оларды жүзеге асыру бойынша тапсырмалар мен қысқаша нұсқаулар:</p>
+<ul>
+	<li>Студенттің өзіндік жұмысы (СӨЖ):</li>
+	<li>Мұғаліммен жұмыс істеу (МЖІ):</li>
+	<li>Зерттеу жұмысы:</li>
+	<li>Аралық бақылау:</li>
+	<li>Емтихан:</li>
+</ul>
+<p>9. Жұмысты бағалау критерийлері:</p>
+<table>
+    <tr class="bck">
+        <td>Бағалау әліпби жүйесімен
+</td>
+        <td>Бағалаудың цифрлық эквиваленті</td>
+        <td>Критериялар</td>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>95 - 100</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>A-</td>
+        <td>90 - 94</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>B+</td>
+        <td>85 - 89</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>80 - 84</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>B-</td>
+        <td>75 - 79</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>C+</td>
+        <td>70 - 74</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>65 - 69</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>C-</td>
+        <td>60 - 64</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>D+</td>
+        <td>55 - 59</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>D</td>
+        <td>50 - 54</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>F</td>
+        <td>0 - 49</td>
+        <td></td>
+    </tr>
+</table><br>
+* Қосымша тапсырмалар үшін бонустық ұпайлар алуға болады<br><br><br><br>
+<p>10.Кейінгі қабылдау саясаты:</p>
+v;v,fdv;,fdv,,fd,fd;,
+<p>11. Қатысу саясаты:</p>
+fldv,;lfd,vlfd;lv,d
+<p>12. Академиялық мінез-құлық және этика саясаты:</p>
+vfvfdvfdvfdvkmfdlvmflkbmklgfnbjngfnbkjngfbjkngfjbknnbkjngfbkjngfjbknfgnbjkngfbkjngfnbkjngfbk kbjgf jbkngfnbbfg bkjgf jbkngfjbgfjkb fjbgfbfjknbfgjb b  bkjgfb kjnbfjngbf
+</body>
+</html>

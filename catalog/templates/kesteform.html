@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+<script type="text/javascript">
+$(function () { function moveItems(origin, dest) {
+    $(origin).find(':selected').appendTo(dest);
+}
+
+function moveAllItems(origin, dest) {
+    $(origin).children().appendTo(dest);
+}
+
+$('#left').click(function () {
+    moveItems('#sbTwo', '#sbOne');
+});
+
+$('#right').on('click', function () {
+    moveItems('#sbOne', '#sbTwo');
+});
+
+$('#leftt').click(function () {
+    moveItems('#sbTwoo', '#sbOnee');
+});
+
+$('#rightt').on('click', function () {
+    moveItems('#sbOnee', '#sbTwoo');
+});
+
+
+$('#lefttt').click(function () {
+    moveItems('#sbTwooo', '#sbOneee');
+});
+
+$('#righttt').on('click', function () {
+    moveItems('#sbOneee', '#sbTwooo');
+});
+
+});
+$(document).ready(function() {
+    $('#pre').change(function() {
+        var selected = 0;
+        $('#pre option:selected').each(function(){
+            selected++;
+        });
+        $('#result').text(selected);
+    });
+});
+
+function validate()
+        {
+            var selectChoose = document.getElementById('sbTwo');
+            var maxOptions = 2;
+            var optionCount = 0;
+            for (var i = 0; i < selectChoose.length; i++) {
+                if (selectChoose[i].selected) {
+                    optionCount++;
+                    document.getElementById("result12").innerHTML = optionCount+1;
+                }
+            }
+            return true;
+        }
+        function validate1()
+        {
+            var selectChoose = document.getElementById('sbTwoo');
+            var maxOptions = 2;
+            var optionCount = 0;
+            for (var i = 0; i < selectChoose.length; i++) {
+                if (selectChoose[i].selected) {
+                    optionCount++;
+                    document.getElementById("result2").innerHTML = optionCount+1;
+                }
+            }
+            return true;
+        }
+        function validate2()
+        {
+            var selectChoose = document.getElementById('sbTwooo');
+            var maxOptions = 2;
+            var optionCount = 0;
+            for (var i = 0; i < selectChoose.length; i++) {
+                if (selectChoose[i].selected) {
+                    optionCount++;
+                    document.getElementById("result3").innerHTML = optionCount+1;
+                }
+            }
+            return true;
+        }
+</script>
+    <style>
+        table, th, td {
+
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{
+    font-weight:normal;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+<form method="post" action="#" >
+{% csrf_token %}
+
+<div class="form-group">
+        {% csrf_token %}
+    <label for="apta">Апта</label><br>
+    <select id="apta" name="apta" class="form-control">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+
+</select>
+
+<label for="tak">Лекция</label><br>
+    <select id="tak" name="tak" class="form-control">
+    {% for takyryp in takyryps %}
+    <option>{{ takyryp.takyryp_aty }}</option>
+    {% endfor %}
+</select>
+
+
+
+    <label for="zert">Зертханалық</label><br>
+    <select id="zert" name="zert" class="form-control">
+    {% for zertjumys in zertjumyss %}
+    <option>{{ zertjumys.opisanie }}</option>
+    {% endfor %}
+    </select>
+<div>
+				<label>Кнопка</label>
+				<button type="submit" class="btn btn-success">Отправить</button>
+
+			</div>
+</div>
+    </form>
+<a href="/catalog/zapol/"><input type="button" value="Кері қайту" class="btn btn-primary btn-block"></a><br>
+
+
+</div>
+<table class="table table-striped">
+    <tr>
+        <td>Апта</td>
+        <td>Лекция тақырыбы</td>
+        <td>Практикалық жұмысының тақырыбы</td>
+
+    </tr>
+{% for keste in kestes %}
+    <tr>
+        <td>{{ keste.apta }}</td>
+        <td>
+            {{ keste.lekcia }}
+    </td>
+        <td>
+            {{ keste.zert }}
+    {% endfor %}</td>
+
+    </tr>
+</table>
+</body>
+</html>

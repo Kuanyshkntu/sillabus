@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+</head>
+<body>
+<div class="container">
+<form action="/catalog/zapol/" method="post">
+{% csrf_token %}
+    <div class="form-group">
+    <label for="num">Номері:</label>
+    <input type="text" name="zert_number" id="num" class="form-control">
+    </div>
+    <div class="form-group">
+    <label for="opis">Мазмұны:</label>
+    <input type="text" name="zert_opisanie" id="opis" class="form-control">
+    </div>
+
+<button type="submit">Сақтау</button>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+  <link rel="stylesheet" href="{% static 'css/logstyle.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+</head>
+<body>
+
+  {% if form.errors %}
+    <p class="error">Сожалеем, вы неправильно ввели логин или пароль</p>
+  {% endif %}
+<div id="login-form">
+        <h1>Авторизация на сайте</h1>
+
+        <fieldset>
+  <form action='.' method='post'>
+      {% csrf_token %}
+
+    <label for="username">Логин:</label>
+    <input type="text" name="username" value="" id="username" >
+    <label for="password">Пароль:</label>
+    <input type="password" name="password" value="" id="password" >
+    <input type="submit" value="login"/>
+    <input type="hidden" name="next" value="{{ next|escape }}" />
+
+
+  </form>
+</fieldset>
+
+    </div>
+</body>
+</html>

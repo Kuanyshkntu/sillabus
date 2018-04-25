@@ -1,0 +1,151 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+<script type="text/javascript">
+$(function () { function moveItems(origin, dest) {
+    $(origin).find(':selected').appendTo(dest);
+}
+
+function moveAllItems(origin, dest) {
+    $(origin).children().appendTo(dest);
+}
+
+$('#left').click(function () {
+    moveItems('#sbTwo', '#sbOne');
+});
+
+$('#right').on('click', function () {
+    moveItems('#sbOne', '#sbTwo');
+});
+
+$('#leftt').click(function () {
+    moveItems('#sbTwoo', '#sbOnee');
+});
+
+$('#rightt').on('click', function () {
+    moveItems('#sbOnee', '#sbTwoo');
+});
+
+
+$('#lefttt').click(function () {
+    moveItems('#sbTwooo', '#sbOneee');
+});
+
+$('#righttt').on('click', function () {
+    moveItems('#sbOneee', '#sbTwooo');
+});
+
+});
+</script>
+</head>
+<body>
+
+
+<form method="post" action="/catalog/syllabus/">
+{% csrf_token %}
+<div>
+        {% csrf_token %}
+    <label for="teacher">Мұғалім</label><br>
+    <select id="teacher" name="teacher">
+    {% for teacher in teachers %}
+    <option>{{ teacher.first_name }}</option>
+    {% endfor %}
+</select>
+</div>
+
+<div>
+    <label for="subject">Сабақ</label><br>
+    <select id="subject" name="subject">
+    {% for subject in subjects %}
+    <option>{{ subject.subject_name }}</option>
+    {% endfor %}
+</select><br>
+</div>
+
+<div>
+    <label for="pre">Пререквизит</label><br>
+    <select id="pre" name="pre" multiple="multiple" size="10">
+    {% for subject in subjects %}
+    <option>{{ subject.subject_name }}</option>
+    {% endfor %}
+</select><br>
+</div>
+
+<div>
+    <label for="postt">Постреквизит</label><br>
+    <select id="postt" name="postt" multiple="multiple" size="10">
+    {% for subject in subjects %}
+    <option>{{ subject.subject_name }}</option>
+    {% endfor %}
+</select><br>
+</div>
+
+
+<div>
+<label for="takyryp">Такырып</label><br>
+    <select id="sbOne" multiple="multiple" name="sel1">
+{% for takyryp in takyryps %}
+			<option > {{ takyryp.takyryp_aty }}</option>
+		{% endfor %}
+    </select>
+
+    <select id="sbTwo" multiple="multiple" name="takyryp">
+
+    </select>
+
+    <br />
+
+    <input type="button" id="left" value="<" />
+    <input type="button" id="right" value=">" />
+    </div>
+
+
+<div>
+<label for="literature">Әдебиеттер</label><br>
+    <select id="sbOnee" multiple="multiple" name="sel1">
+{% for literature in literaturas %}
+			<option >{{ literature.literature_name }}</option>
+		{% endfor %}
+    </select>
+
+    <select id="sbTwoo" multiple="multiple" name="literature">
+
+    </select>
+
+    <br />
+
+    <input type="button" id="leftt" value="<" />
+    <input type="button" id="rightt" value=">" />
+    </div>
+
+
+
+
+<div>
+
+<label for="zertjumys">Зерханалық жұмыс</label><br>
+    <select id="sbOneee" multiple="multiple" name="sel1">
+{% for zertjumys in zertjumyss %}
+			<option > {{ zertjumys.opisanie }}</option>
+		{% endfor %}
+    </select>
+
+    <select id="sbTwooo" multiple="multiple" name="zertjumys">
+
+    </select>
+
+    <br />
+
+    <input type="button" id="lefttt" value="<" />
+    <input type="button" id="righttt" value=">" />
+    </div>
+
+<div>
+				<label>Кнопка</label>
+				<button type="submit">Отправить</button>
+
+			</div>
+
+    </form>
+</body>
+</html>﻿

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+</head>
+<body>
+<div class="container">
+<form action="/catalog/zapol/" method="post">
+{% csrf_token %}
+    <div class="form-group">
+    <label for="name">Әдебиет аты:</label>
+    <input type="text" name="ad_name" id="name" class="form-control">
+    </div>
+    <div class="form-group">
+    <label for="author">Автор:</label>
+    <input type="text" name="ad_author" id="author" class="form-control">
+    </div>
+    <div class="form-group">
+    <label for="izdanie">Издание:</label>
+    <input type="text" name="ad_izdanie" id="izdanie" class="form-control">
+    </div>
+    <div class="form-group">
+    <label for="stranica">Бет саны:</label>
+    <input type="text" name="ad_stranica" id="stranica" class="form-control">
+    </div>
+    <div class="form-group">
+    <label for="god">Шығарылған жылы:</label>
+    <input type="date" name="ad_god" id="god" class="form-control">
+    </div>
+    <div class="form-group">
+    <label for="tip">Типы:</label>
+    <input type="text" name="ad_tip" id="tip" class="form-control">
+    </div>
+
+<button type="submit" class="btn btn-default">Сақтау</button>
+</form>
+</div>
+</body>
+</html>

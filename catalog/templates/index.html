@@ -1,0 +1,32 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Local Library</title>{% endblock %}
+{% load static %}
+  <link rel="stylesheet" href="{% static 'css/instyle.css' %}">
+</head>
+
+<body>
+    <div id="header">
+		<div class="shell">
+			<!-- Logo -->
+			<h1>Силлабус</h1>
+
+			<!-- End Logo -->
+		</div>
+	</div>
+
+
+
+    <form action="/catalog/zapol/">
+    <button type="submit">Кнопка-ссылка</button>
+</form>
+    <img src="{% static 'kar/html.png' %}">
+
+
+
+
+{% endblock %}
+</body>
+</html>

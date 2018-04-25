@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+</head>
+<body>
+<div class="container">
+<form action="/catalog/zapol/" method="post">
+{% csrf_token %}
+<div class="form-group">
+    <label for="number">Номері:</label>
+    <input type="text" name="tak_number" id="number" class="form-control">
+</div>
+<div class="form-group">
+<label for="aty">Тақырып аты:</label>
+    <input type="text" name="tak_aty" id="aty" class="form-control">
+</div>
+<div class="form-group">
+<label for="desc">Мазмұны:</label>
+    <textarea id="desc" name="tak_opisanie" class="form-control"></textarea>
+</div>
+<div class="form-group">
+<label for="sbOne">Зертханалық жұмыс:</label>
+    <select id="sbOne"  name="tak_zert" class="form-control">
+    {% for zert in zertjumyss %}
+			<option > {{ zert.opisanie }}</option>
+		{% endfor %}
+    </select>
+</div>
+<button type="submit">Сактау</button>
+</form>
+</div>
+</body>
+</html>
