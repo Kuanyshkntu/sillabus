@@ -96,7 +96,6 @@ function validate()
 </head>
 <body>
 <div class="container">
-<h1>{{ user }}</h1>
 <form method="post" action="/catalog/syllabus/" >
 {% csrf_token %}
 <div class="form-group">
@@ -121,14 +120,14 @@ function validate()
 
 <label for="prak">Практика сабағынан беретін мұғалім</label><br>
     <select id="prak" name="prak" class="form-control">
-    {% for teacher in teachers %}
+    {% for teacher in teacherss %}
     <option>{{ teacher.first_name }}</option>
     {% endfor %}
 </select>
 
 <label for="lab">Лабаратория сабағынан беретін мұғалім</label><br>
     <select id="lab" name="lab" class="form-control">
-    {% for teacher in teachers %}
+    {% for teacher in teacherss %}
     <option>{{ teacher.first_name }}</option>
     {% endfor %}
 </select>

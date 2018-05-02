@@ -4,7 +4,16 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response,redirect
 from .models import Teacher,Subject,Literature,Takyryp,Zert_jumys,Keste,Lit
 from .forms import SignupForm
-from django.contrib import auth
+#from django.contrib import auth
+#import numpy as np
+#from io import StringIO
+#import io
+#from xhtml2pdf import pisa
+#from django.template.loader import get_template
+#from django.template import Context
+#from django.http import HttpResponse
+#from cgi import escape
+
 
 
 
@@ -113,8 +122,9 @@ def syllabus(request):
     )
 
 
-@login_required
+@login_required(login_url='/')
 def zapol(request):
+    teacherss = Teacher.objects.all()
     user = auth.get_user(request).username
     kestee = Keste.objects.all()
     teachers = Teacher.objects.filter(user__username=user)
@@ -132,6 +142,8 @@ def zapol(request):
         sub_out = request.POST.get('sub_out')
         sub_post = request.POST.get('sub_post')
         subjectt = Subject.objects.create()
+        #subjectt.user.create(Username=request.POST.get('uss'))
+        subjectt.user = auth.get_user(request)
         subjectt.subject_name = sub_name
         subjectt.credit = sub_cred
         subjectt.description = sub_desc
@@ -145,6 +157,7 @@ def zapol(request):
     if request.method == 'POST' and request.POST.get('tak_aty')!=None:
         takyrypp = Takyryp.objects.create()
         tak_zert = request.POST.get('tak_zert')
+        takyrypp.user = auth.get_user(request)
         takyrypp.number = request.POST.get('tak_number')
         takyrypp.takyryp_aty = request.POST.get('tak_aty')
         takyrypp.opisanie = request.POST.get('tak_opisanie')
@@ -152,6 +165,7 @@ def zapol(request):
         takyrypp.save()
     if request.method == 'POST' and request.POST.get('ad_name')!=None:
         liter = Literature.objects.create()
+        liter.user = auth.get_user(request)
         liter.literature_name = request.POST.get('ad_name')
         liter.author = request.POST.get('ad_author')
         liter.izdanie = request.POST.get('ad_izdanie')
@@ -162,6 +176,7 @@ def zapol(request):
 
     if request.method == 'POST' and request.POST.get('zert_number') != None:
         zert = Zert_jumys.objects.create()
+        zert.user = auth.get_user(request)
         zert.number = request.POST.get('zert_number')
         zert.opisanie = request.POST.get('zert_opisanie')
         zert.save()
@@ -175,20 +190,23 @@ def zapol(request):
         apta.save()
 
 
-    return  render(request,'forma.html',{'rek':rek,'kestee':kestee,'teachers':teachers, 'subjects': subjects, 'zertjumyss': zertjumyss, 'takyryps': takyryps,'literaturas': literaturas,'user':user})
+    return  render(request,'forma.html',{'teacherss':teacherss,'rek':rek,'kestee':kestee,'teachers':teachers, 'subjects': subjects, 'zertjumyss': zertjumyss, 'takyryps': takyryps,'literaturas': literaturas,'user':user})
 
 def subform(request):
+    user = auth.get_user(request).username
     takyryps = Takyryp.objects.all()
     literaturas = Literature.objects.all()
-    return render(request,'subform.html',{'takyryps': takyryps,'literaturas': literaturas},)
+    return render(request,'subform.html',{'takyryps': takyryps,'literaturas': literaturas,'user':user},)
 
 def takform(request):
+    user = auth.get_user(request).username
     zertjumyss = Zert_jumys.objects.all()
-    return render(request,'takform.html',{'zertjumyss':zertjumyss},)
+    return render(request,'takform.html',{'zertjumyss':zertjumyss,'user':user},)
 
 def adform(request):
+    user = auth.get_user(request).username
     liter = Literature.objects.all()
-    return render(request, 'adform.html', {'liters': liter}, )
+    return render(request, 'adform.html', {'liters': liter,'user':user}, )
 
 def kesteform(request):
     kestes = Keste.objects.all()
@@ -204,8 +222,9 @@ def kesteform(request):
     return render(request,'kesteform.html',{'takyryps':tak,'zertjumyss':zert,'kestes':kestes})
 
 def zertform(request):
+    user = auth.get_user(request).username
     liter = Literature.objects.all()
-    return render(request, 'zertform.html', {'liters': liter}, )
+    return render(request, 'zertform.html', {'liters': liter,'user':user}, )
 
 
 def signupform(request):
@@ -229,3 +248,5 @@ def signupform(request):
 
 	#returning form
 	return render(request, 'signupform.html', {'form':form});
+
+

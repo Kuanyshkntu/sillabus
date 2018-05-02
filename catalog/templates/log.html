@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+    <style>
+        .error input {
+      border: 1px solid red;
+    }
+
+    .error {
+      color: red;
+    }
+    </style>
 </head>
 <body>
 
@@ -33,5 +42,37 @@
 </fieldset>
 
     </div>
+<script>
+    function showError(container, errorMessage) {
+      container.className = 'error';
+      var msgElem = document.createElement('span');
+      msgElem.className = "error-message";
+      msgElem.innerHTML = errorMessage;
+      container.appendChild(msgElem);
+    }
+
+    function resetError(container) {
+      container.className = '';
+      if (container.lastChild.className == "error-message") {
+        container.removeChild(container.lastChild);
+      }
+    }
+
+    function validate(form) {
+      var elems = form.elements;
+
+      resetError(elems.from.parentNode);
+      if (!elems.username.value) {
+        showError(elems.from.parentNode, ' Заполните поле');
+      }
+
+      resetError(elems.password.parentNode);
+      if (!elems.message.value) {
+        showError(elems.message.parentNode, ' Заполните поле');
+      }
+
+    }
+  </script>
+
 </body>
 </html>
