@@ -100,8 +100,7 @@ function validate()
 {% csrf_token %}
 <div class="form-group">
         {% csrf_token %}
-<a href="/catalog/kesteform/"><input type="button" value="Кесте құру" class="btn btn-primary btn-block"></a><br>
-<br>
+
 
 
 <label for="takyryp">Кесте</label><br>
@@ -110,6 +109,8 @@ function validate()
 			<option > {{ keste.apta }} {{ keste.lekcia }} {{ keste.zert }}</option>
 		{% endfor %}
     </select><br>
+<a href="/catalog/kesteform/"><input type="button" value="Кесте құру" class="btn btn-primary btn-block"></a><br>
+<br>
 
     <label for="teacher">Лектор</label><br>
     <select id="teacher" name="teacher" class="form-control">
@@ -139,7 +140,7 @@ function validate()
     {% for subject in subjects %}
     <option>{{ subject.subject_name }}</option>
     {% endfor %}
-    </select><a href="/catalog/subform/"><input type="button" value="+" class="btn btn-success"></a><br>
+    </select><a href="/catalog/subform/"><input type="button" value="Сабақ қосу" class="btn btn-primary btn-block"></a></a><br>
 
 
 
@@ -180,7 +181,7 @@ function validate()
     </select>
 Выбрано элементов: <span id="result2">0</span><br>
 
-<a href="/catalog/adform/"><input type="button" value="+" class="btn btn-success"></a><br>
+<a href="/catalog/adform/"><input type="button" value="Әдебиет қосу" class="btn btn-primary btn-block"></a><br>
 
     <br />
 

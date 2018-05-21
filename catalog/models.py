@@ -61,7 +61,7 @@ class Literature(models.Model):
 
 class Takyryp(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-    number = models.CharField(max_length=100,unique=True)
+    number = models.CharField(max_length=100)
     takyryp_aty = models.CharField(max_length=100)
     opisanie = models.TextField(blank=True, null=True)
     zert_jumys = models.ForeignKey('Zert_jumys', on_delete=models.SET_NULL, null=True)
@@ -83,9 +83,9 @@ class Subject(models.Model):
     credit = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     outcome = models.TextField(blank=True, null=True)
-    postrekvisit = models.TextField(blank=True, null=True)
     takyryp = models.ManyToManyField(Takyryp, help_text="Select a genre for this book")
     literature = models.ManyToManyField(Literature, help_text="Select a genre for this book")
+
 
     def display_takyryp(self):
         """
@@ -143,9 +143,9 @@ class Teacher(models.Model):
 
 
 class Keste(models.Model):
-    apta = models.CharField(max_length=100)
-    lekcia = models.CharField(max_length=100)
-    zert = models.CharField(max_length=100)
+    apta = models.CharField(max_length=100,blank=True)
+    lekcia = models.CharField(max_length=100,blank=True)
+    zert = models.CharField(max_length=100,blank=True)
 
     def get_absolute_url(self):
         """

@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from catalog.views import GeneratePDF
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('pdf/', GeneratePDF.as_view()),
 ]
 # Use include() to add paths from the catalog application
 from django.urls import include
